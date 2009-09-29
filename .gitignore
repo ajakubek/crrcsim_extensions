@@ -1,0 +1,8 @@
+*.o
+.deps
+autom4te.cache
+config.*
+crrc_config.*
+crrcsim
+stamp-h1
+Makefile
