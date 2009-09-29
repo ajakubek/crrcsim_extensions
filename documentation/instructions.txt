@@ -1,0 +1,132 @@
+
+!!!! This file describes a very old version  !!!!
+!!!!   of CRRCSim, not the current one       !!!!
+
+
+
+Step 1:
+  Download the latest crrcsim zip file from 
+http://groups.yahoo.com/group/crrcsim/files/
+
+Right now, it's crrcsim7.zip.
+http://groups.yahoo.com/group/crrcsim/files/crrcsim7.zip
+
+Step 2:
+  Download port95nt.exe
+ftp://ftp.keithley.com/pub/metrabyte/unsupport/port95nt.exe
+or
+http://www.naughter.com/download/port95nt.exe
+or
+http://www.sstnet.com/ftp/unsupported/port95nt.exe
+
+Step 3:
+  Download and install SDL-1.2 into the system32 directory
+http://www.libsdl.org/release/SDL-1.2.7-win32.zip
+
+Step 4:
+  Dowload the latest glut library from
+http://www.xmission.com/~nate/glut.html
+
+As of now, the latest version is
+http://www.xmission.com/~nate/glut/glut-3.7.3-dlls.zip
+
+Step 5:
+  Unzip the crrcsim zip file.  I recommend unzipping it into a
+  directory called "c:\crrcsim"
+
+Step 6:
+Unzip the glut-3.7.3-dlls.zip using a program like WinZip.  You can
+put them into the directory where you unzipped crrcsim, or the
+c:\windows\system directory, whichever you prefer. If you plan on
+running other programs that will use glut, put them in the
+c:\windows\system directory. 
+
+Step 7:
+  Run the port95nt.exe program to install the printer port driver for
+  crrcsim.  Follow the instructions.
+
+Step 8:
+  Check your c:\windows\system directory to make sure you have a file
+  called opengl32.dll  This indicates you have openGl graphics support
+  installed.  This will atleast get the simulator up and running.  If
+  it runs really slowly, and you have a computer that is less than a
+  couple of years old, it probably has a graphics card that supports
+  hardware accelerated OpenGL. Visit the www.glsetup.com website, or
+  the web site of the manufacturer of your graphics card for further
+  information on installing opengl support.  You can determine what
+  kind of graphics card you have by clicking 
+  Start-Settings-ControlPanel-Display-Settings
+
+  If your have a computer that doesn't support hardware accelerated
+  OpenGL, you  should start the program WordPad in the
+  "start,accessories" menu and  open the file c:\crrcsim\crrcsim.cfg.
+  Change the variables  use_textures to FALSE, and shading to FLAT.
+  This will make things  uglier, but it will be faster.
+
+Step 9:
+  Run crrcsim!  See the commands at the bottom of the file on how to
+  control the plane.
+
+Step 10:
+  To use different planes, you will need to pass the name of the plane
+  as a command line parameter.  You can open a msdos window and type
+  the following commands:
+
+  cd c:\crrcsim
+  crrcsim models/sport.air
+
+  or, whatever other .air file you want to try.  Another way to do
+  this is to click on Start-Run-Browse, then find crrcsim.exe, and
+  then click OK.  Now add the name of the plane to the end of the
+  command that appears in the Run box.  For example:
+    c:\crrcsim\crrcsim.exe models/sport.air
+  Then click OK.
+
+
+Step 11:
+  You can play with the setup of the simulator by editing the
+  crrcsim.cfg file, and the various .air files.  Use wordpad, located
+  in the Start, Programs, Accessories menu.  If you have a fast OpenGL
+  graphics card, I recommend changing the fullscreen variable to TRUE,
+  and the x_resolution and y_resolution to the maximum that your card
+  supports.
+
+    If you have a joystick, you can set the input_method
+  variable to JOYSTICK_2 or JOYSTICK_3.  If you have one of my
+  transmitter interfaces, set the input_method variable to PARALLEL1
+  or PARALLEL2 and the radio_type to FUTABA, or AIRTRONICS, or JR.
+  Depending on what you are using.
+
+  You can also play with the wind speed and direction and the number
+  of thermals and their strength.
+
+  Editing the .air file lets you mess with the plane behaviour.
+
+CRRCsim commands:
+  First of all, the position of the mouse determines the aileron and
+  elevator input if you have input_method set to MOUSE  (the default
+  setting).  So to steer the plane you must move the mouse as though
+  it was the right stick of your transmitter.
+
+ r          restarts after crash
+ t          toggles training mode which displays the location of the thermals
+ page up    increase throttle  (if you aren't using JOYSTICK_3  or better) 
+ page down  decrease throttle  (if you aren't using JOYSTICK_3 or better)
+ +          zoom in   (assuming zoom_control is KEYBOARD)
+ -          zoom out   (assuming zoom_control is KEYBOARD)
+ right arrow/KP6  right rudder
+ left arrow/KP4   left rudder
+ up arrow/KP8     elevator up   (only in keyboard mode)
+ down arrow/KP2   elevator down (only in keyboard mode)
+ KP7              aileron left  (only in keyboard mode)
+ KP9              aileron right (only in keyboard mode)
+ KP5              reset controls to neutral position (only in keyboard mode)
+ escape           exit
+
+ Note that for the KPx keys you should have turned Num-Lock on !
+
+ clicking the right mouse button will pause the simulation, clicking
+ it again will un-pause the simulation
+
+Good luck!
+

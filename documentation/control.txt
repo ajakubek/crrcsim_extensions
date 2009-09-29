@@ -1,0 +1,20 @@
+How to control the plane and crrcsim
+------------------------------------
+
+Besides mouse/joystick/transmitter input, the following keys can be used:
+
+r              restarts after crash
+p              pause
+u              unpause
+t              toggles training mode which displays the location of the thermals
+page up        increase throttle (if you aren't using JOYSTICK or better)
+page down      decrease throttle (if you aren't using JOYSTICK or better)
++              zoom in (assuming zoom.control is KEYBOARD)
+-              zoom out (assuming zoom.control is KEYBOARD)
+right arrow    right rudder
+left arrow     left rudder
+up/down arrow  elevator
+escape         show/hide graphical user interface
+q              quit
+
+

@@ -1,0 +1,13 @@
+set(MOD_MAIN_SRCS
+  eventhandler.cpp
+  )
+add_library(mod_main ${MOD_MAIN_SRCS})
+
+set (MOD_MAIN_LIBS    )
+set (MOD_MAIN_INCDIRS )
+    
+include_directories(
+  ${MOD_MAIN_EXT_INCDIRS}
+)
+
+link_directories      ( ${MOD_MAIN_LINKDIRS} )

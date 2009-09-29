@@ -1,0 +1,804 @@
+This is version 0.9.10, created on 2009-03-07
+---------------------------------------------------
+
+Release Notes for CRRCSim 0.9.10
+--------------------------------
+- New input functions: flap, spoiler, retract, prop/rotor pitch. Note: these
+  functions are right now only supported by few models (Sport has retractable
+  gear, Skorpion has spoiler and flaps).
+- Helicopter simulation. CRRCsim now features a basic flight model for
+  helicopters that simulates all kinds of helis (gas/electric, fixed/collective
+  pitch, single/coax rotor).
+- Better input device configuration. Removed some bugs, redesigned dialog.
+- Bugfix for 9600 baud FMSPIC interfaces.
+- Fixed bug #2012004: On Windows, the device combo box should now list all
+  available serial ports. Some additional fixes to serial interface initialization
+  and ctrlgen dialog handling (may fix #1921555 as well).
+- Feature request #004269: Volume control.
+- Fixed Bug #14363 (Crash when reconfiguring input method).
+- Fixed Bug #15028 (joystick configuration crash).
+- Fixed Bug #15136 (Segfault when exiting CRRCsim).
+- Fixed Bug #15138 (Seg Fault when trying to configure joystick).
+- Fixed Bug #15139 (options>controls>buttons doesn't alter config crrcsim.xml).
+- Fixed Bug #15161 (Axis assignment in Options->Controls->Buttons does not work).
+- Added a Unix manpage.
+- Framework for development and testing of flight envelope controllers.
+  (autopilot functions).
+- New scenery selection dialog.
+- Height calculation for custom/model-based sceneries.
+- Optional 3D windfield import.
+- JPEG texture loading support.
+
+
+
+Release Notes for CRRCSim 0.9.9
+-------------------------------
+- GNU autotools support: CRRCsim can be built using the standard
+  ./configure && make install procedure.
+- Changed airplane description file format to allow a ControlSurfaceAnimation
+  to be controlled by more than one control input (e.g. for elevons).
+- Fixed Windows installer: some of the documentation was missing.
+- FMSPIC interface code cleanup, added /dev/ttyUSBx interfaces.
+- Included patch from Tom Willis (3D preview in aircraft selection dialog).
+  This was later requested by an anonymous user as Feature Request 
+  item #1930079.
+- Conversion of audio interface code to Portaudio 19. The code will now work
+  with both Portaudio 18 and 19. ./configure will auto-detect and use the 
+  installed version. (done)
+- New transmitter interface "ZhenHua" for Walkera transmitters on the
+  serial port.
+- Removed dependency on GLUT and gle.
+- New pop-up console to display system messages.
+- The audio input device for the AUDIO interface can now be selected in the
+  controls dialog. More robust support for hotplugged audio devices.
+- Sloppy camera: The camera can be configured to follow the model with 
+  a slight delay.
+- New dialog Help --> Keys, which shows the key mapping.
+- Feature Requests item #1802286: The F3F results screen now shows the system
+  date and time at which a run was started and ended.
+
+
+Release Notes for CRRCSim 0.9.8
+-------------------------------
+- New model: The Gap65 is a beautiful aerobatics model airplane
+  designed by Pierpaolo Garofalo, who also created the model for
+  CRRCsim. The model demonstrates some of the new CRRCsim features
+  in 0.9.8: moving control surfaces and steerable tail wheel.
+- When reading description texts from an XML file, excessive white
+  space is removed from the text to make it more readable in the
+  dialog boxes.
+- The skybox texture offset option is now configurable through the
+  GUI.
+- The "wheel" section of an airplane description file now allows
+  mapping of a wheel to an R/C channel (for modelling steerable
+  nose- or tailwheels).
+- Added a control surface animation class that can be configured
+  from the XML model description file. This class moves the control
+  surfaces of the model according to control input from the
+  transmitter. The following models already use this feature:
+  Gap65, Allegro, Flexifly XLM.
+- Added a SAL option to the launch dialog to simulate a
+  side-arm-launch (only try this with special DLG models like the
+  Fireworks III from the crrcsim-addon-models package, because a
+  standard model can't compensate for the initial rotation around
+  the yaw axis!).
+- Feature Request #1123364: Models can now bring their own launch
+  presets in the airplane XML description file. The airplane
+  selection dialog now has a checkbox to load the default launch mode
+  when the model is selected. This checkbox is only shown if the
+  selected model features a default launch config.
+- The texture filenames are now defined in the scenery files, not in
+  crrcsim.xml.
+- Corrected a bug that sometimes caused the launch option dialog to
+  be placed partly off-screen.
+- Changed the default F3F sound folder to "sounds/f3f/default".
+- Eliminated the need to have an empty "beep" sound folder to select
+  the console beep as the F3F turn signal without .wav output.
+- Default wind settings can now be specified in each scenery file.
+  If no wind settings for a location are stored in the configuration
+  file, CRRCsim will try to load these scenery defaults before
+  falling back to the internal default.
+- More realistic FDM parameters for the Flexifly XLM model.
+- Patches to allow CRRCSim to interface to the Crossbow MNAV autopilot
+  available at http://sourceforge.net/projects/micronav by emulating a
+  Crossbow MNAV navigation and servo control board (product information
+  available at http://www.xbow.com/Products/productdetails.aspx?sid=193).
+- Applied patch #1646254 (Fix extra qualification in 0.9.7) submitted
+  by J.D. Williams.
+- Fixed a bug that made dynamic soaring impossible in 0.9.7.
+- Added PNG icon from patch #1647962 submitted by J.D. Williams.
+- Plane selection dialog now displays the current plane when it is 
+  opened.
+- Fixed problems with order of evaluation of f, x and y options.
+
+
+Release Notes for CRRCSim 0.9.7
+-------------------------------
+- New, more realistic thermal model (V3). See "thermalsim.html"
+  in the "documentation/thermals" subfolder for more details
+  on the new algorithm. The thermal model can be configured in
+  crrcsim.xml which by default contains some sensible
+  configuration values.
+- New airplane selector dialog: Airplanes are now sorted into
+  various categories, and the dialog shows the airplane description
+  from the XML file.
+- Bugfix: joystick selection did not work properly, it always
+  fell back to joystick 0. In addition, the joystick selection
+  dialog now shows the full device name in addition to the address.
+- Sky rendering can now optionally be done by projecting 
+  90-deg-FOV-textures (generated by TerraGen 
+  [http://www.planetside.co.uk/terragen/] or any other sky
+  rendering tool) onto a sky box.
+- Sky and some scenery parameters can now be configured through
+  the provided scenery files "davis-orig.xml" and 
+  "cape_cod-orig.xml".
+- In addition to the "Sky Box" and "Original Sky Dome" methods
+  for sky rendering, it's now also possible to render a simple
+  untextured sky dome.
+- Patch submitted by Kees Lemmens: Added support for accessing
+  multiple sound cards with the AUDIO interface. The card ID can
+  be configured in crrcsim.xml.
+- Bugfix: When installing CRRCsim on GNU/Linux with 
+  "make -f Makefile.Linux install_local", it didn't find the
+  F3F sound folders (but reported all folders below 
+  /usr/local/share/games/crrcsim/ as sound folders). 
+
+
+Release Notes for CRRCSim 0.9.6
+-------------------------------
+- New XML file format replaces the existing .air file format.
+- One model file can now feature more than one airplane
+  configuration (different looks, additional ballast, ...)
+- Converted all existing .air files to the new .xml file format.
+- Airplanes can now be assigned more than one sound file. All 
+  sounds will be played simultaneously, the mix ratio can be 
+  configured freely.
+- New sound type: "glider" sound (depending on relative and
+  absolute speed of an airplane)
+- Added a default glider sound file to some of the airplanes.
+- Feature request #1184231 Mac OS X: file location change request:
+  saved in user preferences folder
+- Removed static linkage of dlportio.dll on windows
+- Added a platform-specific message box that displays errors if 
+  CRRCsim was unable to start up
+- Fixed a rendering problem with F3F mode: base pylons appear 
+  translucent in training mode and text color should be white 
+  in "normal" mode
+- Fixed the problems with the sound folders for F3F on windows
+- improvement of macosx video intialisation reliability
+- added macosx xcode version 2.2 project file
+- Fixed sky display anomaly on macosx and atirage pro video
+- New model: Pemotec Flexifly XLM
+- New stars-and-stripes-finish for the "Sport"
+- Some more wind and thermal presets
+
+
+
+Release Notes for CRRCSim 0.9.5
+-------------------------------
+
+- New power and propulsion system: Instead of the old
+  "magic source of thrust" the powered planes now
+  feature a detailed simulation of the propulsion system.
+  It is mainly aimed towards electric planes and simulates
+  things like changing battery voltage over current drain
+  and capacity, engine/shaft/gearbox inertias and efficiency,
+  prop efficiency and prop folding.
+- Added a battery capacity indicator to the HUD
+- Added indicator for wind direction to the HUD
+- Airplane 3D models are now rendered by loading common
+  3D file formats (AC3D, 3D Studio Max, ...) instead of
+  describing their geometry in the .air files.
+- Video setup will now try different color depths before
+  giving up
+- Fixed bugs #1251999/#1252344: CRRCsim crashed when
+  selecting the parallel interface on Win32
+- Fixed a lot of coordinate system issues
+- Lots of structural changes to the code
+
+
+
+Release Notes for CRRCSim 0.9.4
+-------------------------------
+
+- Integrated F3F mode from crrcsim-f3f
+- More flexible engine sound handling: A .wav file for
+  the engine sound can be specified in the .air file,
+  together with an engine attribute (electric or glow)
+- "Pure" gliders now ignore the throttle input
+- New models: Zagi-XS, Rutan Quickie
+- Improved RCTRAN2 interface
+- Improved FMSPIC interface
+- Feature request #1184223: audio input mixer disable option.
+  Mixer can now be disabled for all interfaces.
+- Bugfixes
+
+
+
+Release Notes for CRRCSim 0.9.3
+-------------------------------
+
+- Acoustic variometer for all platforms
+- Configuration dialog for audio settings
+- Simplified configuration (one central dialog)
+- New dialog for transmitter calibration and mapping
+- New interface type: FMSPIC - serial connection via an
+  FMS-Pic-style cable. Supports 19200 baud / 0xFF and
+  9600 baud / 0xF0+ cables (9600/0xF0+ is still experimental)
+- Added a software mixer to the audio interface (exponential,
+  trim and rate limit settings)
+- Enabled new thermal simulation code
+- Added an FPS limiter to reduce CPU usage on fast systems
+- Fixed bug #1177488: Rudder reversal in test mode
+- Fixed issue #1093835: CRRCsim now reports an
+  error and cleanly exits if a texture file is missing instead of
+  crashing without error message.
+- Joystick now has a default mapping (axis 0 and 1 mapped to
+  elevator and aileron)
+- Fixed issue #1176549: overflow in windfield simulation
+- New model: arkanj-mg11.air
+
+
+
+
+Release Notes for CRRCSim 0.9.2
+-------------------------------
+
+What's new in 0.9.2?
+--------------------
+
+Graphical user interface
+
+The most obvious new feature is a dialog-based graphical user
+interface (GUI) which can be activated by pressing <ESC>. Use
+it to configure your transmitter interface, the video and audio
+settings, to choose a different airplane model or to save your
+configuration changes to disk. The GUI also provides a
+replacement for the old "verbose" mode which printed various
+information to stdout. All information will now be displayed
+right inside the simulation window if you activated the verbose
+mode (View-->Toggle verbose).
+
+
+XML configuration file
+
+The configuration is no longer stored in crrcsim.cfg. This file
+was replaced by crrcsim.xml. If you prefer configuring CRRCSim
+by hand instead of using the GUI, you can still edit this file
+with a text editor or an XML editor. Just in case you messed up
+anything in this file you can simply delete it. On the next startup
+everything will be reset to default values and crrcsim.xml will
+automatically be recreated.
+
+
+Transmitter interfaces
+
+AUDIO: This interface type now is an official part of CRRCSim on
+all supported platforms. It acquires the transmitter's PPM signal
+from the trainer chord plug via the PC's soundcard. More information
+on how to connect the transmitter can be found in the documentation
+directory.
+
+RCTRAN2 (experimental): This interface type is included as a
+possible replacement for the existing RCTRAN interface on GNU/Linux.
+It uses the /proc file system instead of sharing memory with the
+kernel through mbuff. For more information on how to build the kernel
+module and how to use this interface, please consult the information
+from the documentation directory.
+
+
+Launch mode configuration
+
+In older versions of CRRCSim the initial status of the airplane after
+a simulation reset was described in the .air file of this plane. Thus,
+you had to edit this file if you wanted to start at a different
+altitude or with a different velocity. Now the launch parameters
+(altitude, velocity and angle) can be configured from within CRRCSim.
+The launch dialog offers presets for a variety of launch modes 
+(hand start, ground start, HLG throw, winch start) and also offers the
+possibility to create new custom launch parameter sets.
+
+
+Auto-zooming
+
+To compensate for the limited resolution of a PC monitor which makes
+it difficult to control the plane when flying at great distance from
+the viewpoint, the zoom can now be configured to automatically follow
+your plane. You can access this setting through the video resolution
+dialog. Set the auto-zoom value to zero to disable this feature.
+
+
+New airplane models
+
+    * Skorpion, an F3F-oriented slope soarer
+    * Melyan 01, a twin-boom sports plane
+    * Tug, another sports plane
+    * Skimmer, a typical beginner model
+    * Zipper, a flying wing for slope soaring made by Birdworks
+    * Zip60, the sixty-inch-Zipper 
+
+
+Support for joysticks with up to eight axis
+
+Older versions only supported four axis which made it impossible
+to use the Great Planes USB controller as it maps the rudder control
+to a higher axis number.
+
+
+Basic sounds
+
+There is a simple audio variometer (currently linux only) and engine
+sound. Please notice that engine sound is currently not related to the
+selected model. When chosing a glider you have to turn of the engine
+sound manually. Plane-dependend sound effects will be integrated in a
+future release. 
+
+
+Test mode
+
+Pressing 'd' will change to test mode. This shows the effect of the
+input control signals on the plane without the risk of crashing.
+If AUDIO is selected as transmitter interface, a small oscilloscope
+will show the signal from the sound card input.
+
+---------------------------------------------------
+Detailed changelog:
+
+o  --- 1102 --- 2374c41c4d3f --- 2009-03-07 17:33 +0100 --- tip
+|      User: slowhand_47 <slowhand_47@gmx.de>
+|  	Added tag 0.9.10 for changeset 1cfbd9b15eba
+|
+| @  --- 1101 --- 1cfbd9b15eba --- 2009-03-07 17:21 +0100 --- 0.9.10
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Added extended licensing information to CGAL related files.
+| |
+o |  --- 1100 --- 5202a69fe548 --- 2009-03-06 22:57 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Added tag 0.9.10 for changeset 06955f297165
+| |
+| o  --- 1099 --- 06955f297165 --- 2009-03-06 22:44 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Removed Fedora 6 and 8 from distribution.
+| |
+| o  --- 1098 --- 297634bf2c50 --- 2009-03-06 22:29 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Updated Fedora packaging files for 0.9.10.
+| |
+| o  --- 1097 --- 1e9cfbe34ad3 --- 2009-03-05 22:33 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Some changes to the Windows installer script.
+| |
+| o  --- 1096 --- 33b507dfe0e1 --- 2009-03-05 22:25 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Corrected displayed scenery names.
+| |
+| o  --- 1095 --- cacc7e81f90c --- 2009-03-03 20:00 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	FDMs trying to load airplane file: only write to stderr if there is an error
+| |
+| o  --- 1094 --- 3c7bedd04cb7 --- 2009-03-03 19:30 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	Added files for cmake to autotools' tarball creation
+| |
+o |  --- 1093 --- ba70b08082db --- 2009-03-02 23:11 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Added tag 0.9.10rc2 for changeset a9a90550a322
+| |
+| o  --- 1092 --- a9a90550a322 --- 2009-03-02 23:09 +0100 --- 0.9.10rc2
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Suppressed compiler warnings about unused return values.
+| |
+| o  --- 1091 --- 2e83448ea95a --- 2009-03-01 17:03 +0100 ---
+| |      User: Joel Lienard
+| |  	Cleaning and formating of the code
+| |
+| o  --- 1090 --- e8adcb6822ce --- 2009-03-01 12:06 +0100 ---
+| |      User: Joel Lienard
+| |  	fix warning
+| |
+| o  --- 1089 --- 84ba8e909ed7 --- 2009-02-28 11:42 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Fixed signed vs. unsigned issues in CharDeviceWrapper.
+| |
+| o  --- 1088 --- 455db5127fe3 --- 2009-02-27 23:54 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Fixed array indexing bug.
+| |
+| o  --- 1087 --- e7e7f86dde6d --- 2009-02-27 13:01 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	Unimportant changes to fdm_002, quaternion
+| |
+| |  	The bug shown by the compiler warning did not have any effect, as the correct equation was used some lines later anyway.
+| |  	So fdm_002 still has its problems...
+| |
+| o  --- 1086 --- f172fa540655 --- 2009-02-27 11:35 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	care about compiler warning, cleanup
+| |
+| o  --- 1085 --- 3ab578d2ea6d --- 2009-02-27 11:23 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	tiny code cleanup
+| |
+| o  --- 1084 --- 6a7be9156f88 --- 2009-02-27 11:18 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	Fixed initialisation bug:
+| |
+| |  	It is unsure if this bug had any serious consequences. However, some parts of memory which should not have been accessed have been overwritten with fixed values before.
+| |  	So something might be better than before, at least nothing is worse...
+| |
+| o  --- 1083 --- bf98d141e626 --- 2009-02-27 11:04 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	note about quaternion bug and compiler warning
+| |
+| |  	I'll care about that later as this code is not in use anyway (fdm_larcsim is used instead of fdm_002)
+| |
+| o  --- 1082 --- e1bae4d619e2 --- 2009-02-26 23:13 +0100 ---
+| |      User: Joel Lienard
+| |  	fix warning on "tilling teerain" with debian compiler
+| |
+| o  --- 1081 --- 886723f97970 --- 2009-02-26 18:10 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	Updated tarball-creation-scripts
+| |
+| o  --- 1080 --- 593af8259f9c --- 2009-02-26 17:08 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	cmake is more complete now...
+| |
+| |  	...it does tests as the autotools thingy does and installs everything.
+| |
+| o  --- 1079 --- f516c6fb4acd --- 2009-02-26 13:49 +0100 ---
+| |      User: Joel Lienard
+| |  	fix warning on "tilling teerain" with debian compiler
+| |
+| o  --- 1078 --- eddfb0cb823f --- 2009-02-26 12:32 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	cmake update -- basic compilation is working
+| |
+| |  	It doesn't do all the tests the autotools setup does, it doesn't install, BUT: it compiles to a separate directory and you see warnings clearly.
+| |
+| o  --- 1077 --- 4fc6acdc4fdb --- 2009-02-26 10:15 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	Documentation update
+| |
+| o  --- 1076 --- fca0b2d96f3f --- 2009-02-26 08:45 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	motor noise, electrical non-folding prop
+| |
+| o  --- 1075 --- 6784d9742be3 --- 2009-02-26 10:01 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	bugfix: fixed propeller models could only be started from the ground...
+| |
+| |  	...with initial velocity=0, because the speed of the power system's shafts/propellers had not been initialized to meet an initial velocity!=0, which resulted in high torque from the propeller.
+| |  	I did not check, but quite surely this bug has been introduced with 58f0a215cb10, which added torque output to Power::Propeller.
+| |
+| o  --- 1074 --- ed39a1b6b031 --- 2009-02-26 08:05 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	Added default launch position
+| |
+| o  --- 1073 --- 7567f6a3e00d --- 2009-02-25 17:03 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	Added default launch position
+| |
+| |  	...so it is like 'old' Davis default -- these models start from ground, so this should fit. You usually don't start them at Cape Cod.
+| |  	There still is a difference to the field of view of the last release because one of the recent changesets liftet the viewing position.
+| |
+| o  --- 1072 --- b4a62f624e24 --- 2009-02-25 16:54 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	Provide launch default for gliders: right hand launch
+| |
+| |  	This works with every glider at every scenery and is what most people do.
+| |
+| o  --- 1071 --- 63138b8743b4 --- 2009-02-25 16:57 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	added launch defaults
+| |
+| o  --- 1070 --- 8518c15ca8e1 --- 2009-02-25 16:41 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	Provide launch default like 'old' Cape Cod
+| |
+| o  --- 1069 --- e91a8e883487 --- 2009-02-25 15:58 +0100 ---
+| |      User: jww <jens_w2@gmx.net>
+| |  	launch position relative to player: Fix badness, provide additional value
+| |
+| |  	it just happened when I wanted to fix initialize_flight_model()...
+| |
+| o  --- 1068 --- f7296b405e32 --- 2009-02-23 23:01 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Fixed archive creation script. Updated release notes for 0.9.10.
+| |
+| o  --- 1067 --- 8a5ab63b5adb --- 2009-02-23 22:46 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Removed HISTORY file (my mistake...)
+| |
+| o  --- 1066 --- fe1aabc7f45c --- 2009-02-23 22:43 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Removed experimental sceneries from the source tarball.
+| |
+| o  --- 1065 --- 94f98d3c2d73 --- 2009-02-22 22:20 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Added macro to suppress repeated OpenGL error printing (enabled by default).
+| |
+| o  --- 1064 --- 952af3e5e94a --- 2009-02-17 21:39 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Added Fireworks_IIId and Supra gliders.
+| |
+| o  --- 1063 --- ab39ed399017 --- 2009-02-15 17:47 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Set version number to 0.9.10.
+| |
+| o  --- 1062 --- c194a5878367 --- 2009-02-15 17:39 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Added missing files to fix 'make distcheck'.
+| |
+| o  --- 1061 --- cdae5a159a45 --- 2009-02-15 17:15 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Adjusted build scripts to the new range of models.
+| |
+| o  --- 1060 --- bdd040a0f939 --- 2009-02-14 13:01 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Added some models from crrcsim-addon-models.
+| |
+| o  --- 1059 --- b5fcd7d4bb4a --- 2009-02-14 12:53 +0100 ---
+| |      User: slowhand_47 <slowhand_47@gmx.de>
+| |  	Removed some legacy models.
+| |
+| o    --- 1058 --- 0238578631e2 --- 2009-02-12 22:03 +0100 ---
+| |\       User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	merge
+| | |
+| | o  --- 1057 --- 472d659ab060 --- 2009-02-11 22:28 +0100 ---
+| | |      User: Joel Lienard
+| | |  	correction in F3F dialogue to avoid HEAP corruption
+| | |
+| | o    --- 1056 --- b8088e854c9a --- 2009-02-11 22:19 +0100 ---
+| | |\       User: Joel Lienard
+| | | |  	airplanes initial position revised
+| | | |
+| | | o  --- 1055 --- 52676e5127a2 --- 2009-02-11 21:47 +0100 ---
+| | | |      User: Joel Lienard
+| | | |  	airplanes initial position revised
+| | | |
+| o---+  --- 1054 --- d74c9ac3695b --- 2009-02-11 21:05 +0100 ---
+|   | |      User: slowhand_47 <slowhand_47@gmx.de>
+|  / /   	Removed disfunctional configuration of joystick axes from the command line.
+| | |
+| | o  --- 1053 --- 52957eb12196 --- 2009-02-09 17:33 +0100 ---
+| | |      User: Joel Lienard
+| | |  	airplanes initial position revised
+| | |
+| | o  --- 1052 --- 4d10596cfbc3 --- 2009-02-03 22:39 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Removed disfunctional axis assignment part of the crrc_joy dialog.
+| | |
+| | o  --- 1051 --- d8d24b24fd91 --- 2009-01-31 10:43 -0800 ---
+| | |      User: Todd R. Templeton <ttemplet@eecs.berkeley.edu>
+| | |  	Copyright information for original MNAV code.
+| | |
+| | o  --- 1050 --- d05e8ef59c45 --- 2009-01-27 22:59 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Fixed bug #015136 Segfault when exiting CRRCsim. Soundserver is now deallocated last.
+| | |
+| | o  --- 1049 --- 90e93802b50f --- 2009-01-27 22:40 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Edited license header.
+| | |
+| | o  --- 1048 --- 3e0b4407ac00 --- 2009-01-27 22:36 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Updated compile.txt (libjpeg instructions)
+| | |
+| | o  --- 1047 --- e3e435a1cb92 --- 2009-01-26 23:21 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Bugfix for bug #015028 joystick configuration crash.
+| | |
+| | o  --- 1046 --- 5091ced674b3 --- 2009-01-26 23:13 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Improved simulated joystick support for debugging.
+| | |
+| | o  --- 1045 --- 0414ad7022de --- 2009-01-25 16:49 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added license headers and copyright notes
+| | |
+| | o  --- 1044 --- 19f8a505bb4a --- 2009-01-25 16:31 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header (edited)
+| | |
+| | |  	After automatic insertion by a script, these headers have been edited in order to reflect the file's origin and authors.
+| | |
+| | o  --- 1043 --- e4b5d07fcd3e --- 2009-01-25 16:21 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header (edited)
+| | |
+| | |  	After automatic insertion by a script, these headers have been edited in order to reflect the file's origin and authors.
+| | |
+| | o  --- 1042 --- 02c67e1523f7 --- 2009-01-25 16:03 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header (unfinished)
+| | |
+| | |  	After automatic insertion by a script, these headers have been edited in order to reflect the file's origin and authors, but there is work left as far as this is concerned.
+| | |
+| | o  --- 1041 --- a0637e283269 --- 2009-01-25 16:00 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header
+| | |
+| | |  	All of them have been added by a script and not been edited by hand afterwards.
+| | |
+| | o  --- 1040 --- 9cc3d85af0c6 --- 2009-01-25 15:59 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header
+| | |
+| | |  	All of them have been added by a script and not been edited by hand afterwards.
+| | |
+| | o  --- 1039 --- 6fd6ec852777 --- 2009-01-25 12:41 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Added license header (edited) to mod_windfield.
+| | |
+| | o  --- 1038 --- 7979548a7f72 --- 2009-01-25 12:32 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Added license header (edited) to mod_mode.
+| | |
+| | o  --- 1037 --- 05e47341f85c --- 2009-01-25 12:23 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Added license header (edited) to mod_misc.
+| | |
+| | o  --- 1036 --- 57336f393abe --- 2009-01-25 12:13 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Added license header (edited) to mod_main.
+| | |
+| | o  --- 1035 --- e9b87a602a93 --- 2009-01-25 12:09 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Added license header (edited) to mod_landscape.
+| | |
+| | o  --- 1034 --- 31963e1b290b --- 2009-01-24 15:10 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header
+| | |
+| | |  	All of them have been added by a script and not been edited by hand afterwards.
+| | |
+| | o  --- 1033 --- 7ee4a9398879 --- 2009-01-24 14:56 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header (edited)
+| | |
+| | |  	After automatic insertion by a script, these headers have been edited in order to reflect the file's origin and authors.
+| | |
+| | o  --- 1032 --- f878c85e2f31 --- 2009-01-24 14:42 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header
+| | |
+| | |  	All of them have been added by a script and not been edited by hand afterwards.
+| | |
+| | o  --- 1031 --- e2084eb22c22 --- 2009-01-24 14:38 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header (edited)
+| | |
+| | |  	After automatic insertion by a script, these headers have been edited in order to reflect the file's origin and authors.
+| | |
+| | o  --- 1030 --- f4a8c774a682 --- 2009-01-24 14:24 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header
+| | |
+| | |  	All of them have been added by a script and not been edited by hand afterwards.
+| | |
+| | o  --- 1029 --- cffcb3942503 --- 2009-01-24 14:06 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header (edited)
+| | |
+| | |  	After automatic insertion by a script, these headers have been edited in order to reflect the file's origin and authors.
+| | |
+| | o  --- 1028 --- af6bfa216def --- 2009-01-24 13:41 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Updated/extended AUTHORS file
+| | |
+| | o  --- 1027 --- 6d9ff4cedc62 --- 2009-01-24 13:40 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header (edited)
+| | |
+| | |  	After automatic insertion by a script, these headers have been edited in order to reflect the file's origin and authors.
+| | |
+| | o  --- 1026 --- 32d70584d141 --- 2009-01-24 13:06 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header (edited)
+| | |
+| | |  	After automatic insertion by a script, these headers have been edited in order to reflect the file's origin and authors.
+| | |
+| | o  --- 1025 --- 8819c9eba140 --- 2009-01-24 12:52 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header
+| | |
+| | |  	All of them have been added by a script and not been edited by hand afterwards.
+| | |
+| | o  --- 1024 --- d761d71a0d6a --- 2009-01-24 12:48 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header
+| | |
+| | |  	All of them have been added by a script and not been edited by hand afterwards.
+| | |
+| | o  --- 1023 --- b5ebe061d63b --- 2009-01-24 12:46 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header
+| | |
+| | |  	All of them have been added by a script and not been edited by hand afterwards.
+| | |
+| | o  --- 1022 --- 8aa71a29b603 --- 2009-01-24 12:39 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header
+| | |
+| | |  	All of them have been added by a script and not been edited by hand afterwards.
+| | |
+| | o  --- 1021 --- d1fe6da3377f --- 2009-01-24 12:36 +0100 ---
+| | |      User: jww <jens_w2@gmx.net>
+| | |  	Added copyright header
+| | |
+| | |  	All of them have been added by a script and not been edited by hand afterwards.
+| | |
+| | o  --- 1020 --- 7bf1a011b33b --- 2009-01-23 23:58 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Fixed license text in GUI module.
+| | |
+| | o  --- 1019 --- 80cda0744aef --- 2009-01-23 23:57 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Fixed license test in src root.
+| | |
+| | o  --- 1018 --- 540980592a53 --- 2009-01-23 23:45 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Added license header to files in src root.
+| | |
+| | o  --- 1017 --- 2a1504fed184 --- 2009-01-23 23:04 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Added copyright headers to GUI module
+| | |
+| | o  --- 1016 --- 64f571176c00 --- 2009-01-17 21:59 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	configure should now check for libjpeg and libCGAL
+| | |
+| | o  --- 1015 --- fdcc36ce1d7c --- 2009-01-17 21:39 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Fixed compiler error (Linux, g++ 4.3.2)
+| | |
+| | o  --- 1014 --- c0820cd28e4d --- 2009-01-15 16:58 +0100 ---
+| | |      User: Joel Lienard
+| | |  	import Windata 3D, JPEG texture
+| | |
+| | o  --- 1013 --- b5d92059e2b0 --- 2008-11-10 21:57 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Fixed type inconsistency.
+| | |
+| | o  --- 1012 --- 65eb5a88da02 --- 2008-11-08 22:35 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Added more detail to the Sport's 3D model.
+| | |
+| | o  --- 1011 --- 03112fa4ee77 --- 2008-11-02 14:27 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Animated elevator for the Sport.
+| | |
+| | o  --- 1010 --- a8c5ba46eb62 --- 2008-11-01 15:12 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Added rudder animation to the Sport.
+| | |
+| | o  --- 1009 --- a0956349d446 --- 2008-10-28 21:53 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	BSOC fix (current_transformation uninitialized) and cleanup
+| | |
+| | o  --- 1008 --- 35aaacd43756 --- 2008-10-28 21:50 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	const correctness, minor cleanup
+| | |
+| | o  --- 1007 --- a19f28813e87 --- 2008-10-28 21:47 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	const correctness, header protection
+| | |
+| | o  --- 1006 --- 0bbdadfaa637 --- 2008-10-28 21:43 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Minor issues (cleanup).
+| | |
+| | o  --- 1005 --- cb34846c07cc --- 2008-10-28 21:32 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Added aileron animation to the Sport.
+| | |
+| | o  --- 1004 --- ab800251e6df --- 2008-10-26 15:47 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Hardpoints on animated surfaces should now behave correctly.
+| | |
+| | o  --- 1003 --- 80c0aeb3dcdc --- 2008-10-26 09:15 +0100 ---
+| | |      User: slowhand_47 <slowhand_47@gmx.de>
+| | |  	Introduced coupling between CRRCAnimation and WheelSystem.
+| | |

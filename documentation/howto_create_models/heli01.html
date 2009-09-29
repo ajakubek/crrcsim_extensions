@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <style type="text/css">
+    .fragment {
+       font-family: monospace
+}
+PRE.fragment {
+	border: 1px solid #CCCCCC;
+	background-color: #f5f5f5;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	margin-left: 2px;
+	margin-right: 8px;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+    </style>
+  </head>
+  
+  <body>
+
+  <h1>How to adjust helicopter parameters, helicopter model version 1</h1>
+
+  <h2>0 General information</h2>
+  
+    <p>
+      Please read <a href="../file_format/heli01.html">this file</a> for a
+      description of helicopter parameters.
+    </p>
+  
+  <h2>1 Suggested steps</h2>
+
+    It is assumed that values for mass and inertia already are correct.
+    
+    <ol>
+      <li>
+        Copy and modify the values of an existing model.
+      </li>
+      
+      <li>
+        Set all of the following values to zero:
+        <tt>aero.yaw.dist</tt>, <tt>aero.pitch.dist</tt>,
+        <tt>aero.roll.dist</tt>,
+        <tt>aero.yaw.moment_mul</tt>, <tt>aero.yaw.off</tt>,
+        <tt>aero.yaw.cp_to_yaw</tt>,
+        <tt>aero.roll.ForwardToRoll</tt>,
+        <tt>aero.yaw.vane</tt>, <tt>aero.pitch.vane</tt>
+      </li>
+      
+      <li>
+        Start CRRCSim, set wind speed and thermals to zero. Load the model
+        you want to adjust. Save settings. Easiest way to try settings is 
+        to just quit CRRCSim (hit 'q'), edit and save parameter file, start
+        CRRCSim again.  
+      </li>
+      
+      <li>
+        If <tt>power.fixed_pitch</tt> is set, adjust <tt>aero.pitch.off</tt>
+        and <tt>power.automagic.F</tt> to set maximum climb rate and climb
+        rate at neutral stick. <br>
+        For a collective pitch heli, adjust <tt>aero.pitch.off</tt>,
+        <tt>aero.pitch.ctrl</tt> 
+        and <tt>power.automagic.F</tt>.
+      </li>
+      
+      <li>
+        Adjust <tt>aero.yaw.ctrl</tt>, <tt>aero.pitch.ctrl</tt>, and
+        <tt>aero.roll.ctrl</tt> for full stick rotation rates in rad/second. 
+      </li>
+      
+      <li>
+        Does the heli rotate around the correct point? Adjust its center of
+        gravity.
+      </li>
+      
+      <li>
+        Adjust lift in ground effect with <tt>GroundEffect.climb.mul</tt> and
+        <tt>GroundEffect.climb.exp</tt>.
+      </li>           
+
+      <li>
+        Fly around and adjust <tt>aero.yaw.vane</tt>,
+        <tt>aero.pitch.vane</tt>, and <tt>aero.speed.damp</tt>.
+      </li>
+
+      <li>
+        Remove <tt>aero.pitch.damp</tt> and <tt>aero.pitch.dist</tt>. They
+        are taken from <tt>aero.roll.damp</tt> and <tt>aero.roll.dist</tt>
+        if they don't exist.
+      </li>
+
+      <li>
+        Adjust <tt>aero.roll.damp</tt> and <tt>aero.roll.dist</tt>.
+        You may want to tweak <tt>Disturbance.tau_filter</tt> and
+        <tt>Disturbance.time</tt>, too.
+      </li>
+
+      <li>
+        Do you think <tt>aero.pitch.damp</tt> and <tt>aero.pitch.dist</tt>
+        should differ from 
+        <tt>aero.roll.damp</tt> and <tt>aero.roll.dist</tt>? If this is the case:
+        define them.
+      </li>
+
+      <li>
+        Adjust <tt>aero.yaw.damp</tt>, <tt>aero.yaw.damp_min_rel</tt>, and <tt>aero.yaw.dist</tt>.
+      </li>
+
+      <li>
+        If the model has a heading lock gyro, set
+        <tt>aero.yaw.HeadingHold</tt> to something greater than zero and
+        <tt>aero.yaw.moment_mul</tt> to one.<br>
+        Otherwise, you should ideally increase <tt>aero.yaw.moment_mul</tt>
+        to one and adjust <tt>aero.yaw.off</tt> and
+        <tt>aero.yaw.cp_to_yaw</tt>. Setting <tt>aero.yaw.moment_mul</tt> to
+        something smaller than one makes this easier -- but maybe less
+        realistic.
+      </li>
+      
+      <li>
+        Adjust increase of disturbances in ground effect:
+        <tt>GroundEffect.dist.mul</tt> and
+        <tt>GroundEffect.dist.exp</tt>.
+      </li>
+      
+      <li>
+        Finally, you may want to tweak <tt>aero.roll.ForwardToRoll</tt>.
+      </li>
+      
+    </ol>
+
+  </body>
+</html>
