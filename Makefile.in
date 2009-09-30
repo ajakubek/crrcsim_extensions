@@ -104,6 +104,8 @@ am_crrcsim_OBJECTS = crrcsim-handlerF3F.$(OBJEXT) \
 	crrcsim-LoggerReader_byte.$(OBJEXT) \
 	crrcsim-LoggerReader_ttyS.$(OBJEXT) \
 	crrcsim-inputdev_serpic.$(OBJEXT) \
+	crrcsim-inputdev_socket.$(OBJEXT) \
+	crrcsim-interface_socket.$(OBJEXT) \
 	crrcsim-inputdev_software.$(OBJEXT) \
 	crrcsim-inputdev_zhenhua.$(OBJEXT) crrcsim-inputdev.$(OBJEXT) \
 	crrcsim-crrc_scenery.$(OBJEXT) crrcsim-crrc_sky.$(OBJEXT) \
@@ -436,6 +438,8 @@ crrcsim_SOURCES = src/mod_mode/F3F/handlerF3F.h \
        src/mod_inputdev/inputdev_serial2/LoggerReader_ttyS.cpp \
        src/mod_inputdev/inputdev_serpic/inputdev_serpic.h \
        src/mod_inputdev/inputdev_serpic/inputdev_serpic.cpp \
+       src/mod_inputdev/inputdev_socket/inputdev_socket.cpp \
+       src/mod_inputdev/inputdev_socket/interface_socket.cpp \
        src/mod_inputdev/inputdev_software/inputdev_software.h \
        src/mod_inputdev/inputdev_software/inputdev_software.cpp \
        src/mod_inputdev/inputdev_zhenhua/inputdev_zhenhua.h \
@@ -735,8 +739,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crrcsim-inputdev_serial.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crrcsim-inputdev_serial2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crrcsim-inputdev_serpic.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crrcsim-inputdev_socket.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crrcsim-inputdev_software.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crrcsim-inputdev_zhenhua.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crrcsim-interface_socket.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crrcsim-intgr.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crrcsim-lib_conversions.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crrcsim-linearreg.Po@am__quote@
@@ -1780,6 +1786,34 @@ crrcsim-inputdev_serpic.obj: src/mod_inputdev/inputdev_serpic/inputdev_serpic.cp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/mod_inputdev/inputdev_serpic/inputdev_serpic.cpp' object='crrcsim-inputdev_serpic.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(crrcsim_CXXFLAGS) $(CXXFLAGS) -c -o crrcsim-inputdev_serpic.obj `if test -f 'src/mod_inputdev/inputdev_serpic/inputdev_serpic.cpp'; then $(CYGPATH_W) 'src/mod_inputdev/inputdev_serpic/inputdev_serpic.cpp'; else $(CYGPATH_W) '$(srcdir)/src/mod_inputdev/inputdev_serpic/inputdev_serpic.cpp'; fi`
+
+crrcsim-inputdev_socket.o: src/mod_inputdev/inputdev_socket/inputdev_socket.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(crrcsim_CXXFLAGS) $(CXXFLAGS) -MT crrcsim-inputdev_socket.o -MD -MP -MF $(DEPDIR)/crrcsim-inputdev_socket.Tpo -c -o crrcsim-inputdev_socket.o `test -f 'src/mod_inputdev/inputdev_socket/inputdev_socket.cpp' || echo '$(srcdir)/'`src/mod_inputdev/inputdev_socket/inputdev_socket.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/crrcsim-inputdev_socket.Tpo $(DEPDIR)/crrcsim-inputdev_socket.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/mod_inputdev/inputdev_socket/inputdev_socket.cpp' object='crrcsim-inputdev_socket.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(crrcsim_CXXFLAGS) $(CXXFLAGS) -c -o crrcsim-inputdev_socket.o `test -f 'src/mod_inputdev/inputdev_socket/inputdev_socket.cpp' || echo '$(srcdir)/'`src/mod_inputdev/inputdev_socket/inputdev_socket.cpp
+
+crrcsim-inputdev_socket.obj: src/mod_inputdev/inputdev_socket/inputdev_socket.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(crrcsim_CXXFLAGS) $(CXXFLAGS) -MT crrcsim-inputdev_socket.obj -MD -MP -MF $(DEPDIR)/crrcsim-inputdev_socket.Tpo -c -o crrcsim-inputdev_socket.obj `if test -f 'src/mod_inputdev/inputdev_socket/inputdev_socket.cpp'; then $(CYGPATH_W) 'src/mod_inputdev/inputdev_socket/inputdev_socket.cpp'; else $(CYGPATH_W) '$(srcdir)/src/mod_inputdev/inputdev_socket/inputdev_socket.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/crrcsim-inputdev_socket.Tpo $(DEPDIR)/crrcsim-inputdev_socket.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/mod_inputdev/inputdev_socket/inputdev_socket.cpp' object='crrcsim-inputdev_socket.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(crrcsim_CXXFLAGS) $(CXXFLAGS) -c -o crrcsim-inputdev_socket.obj `if test -f 'src/mod_inputdev/inputdev_socket/inputdev_socket.cpp'; then $(CYGPATH_W) 'src/mod_inputdev/inputdev_socket/inputdev_socket.cpp'; else $(CYGPATH_W) '$(srcdir)/src/mod_inputdev/inputdev_socket/inputdev_socket.cpp'; fi`
+
+crrcsim-interface_socket.o: src/mod_inputdev/inputdev_socket/interface_socket.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(crrcsim_CXXFLAGS) $(CXXFLAGS) -MT crrcsim-interface_socket.o -MD -MP -MF $(DEPDIR)/crrcsim-interface_socket.Tpo -c -o crrcsim-interface_socket.o `test -f 'src/mod_inputdev/inputdev_socket/interface_socket.cpp' || echo '$(srcdir)/'`src/mod_inputdev/inputdev_socket/interface_socket.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/crrcsim-interface_socket.Tpo $(DEPDIR)/crrcsim-interface_socket.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/mod_inputdev/inputdev_socket/interface_socket.cpp' object='crrcsim-interface_socket.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(crrcsim_CXXFLAGS) $(CXXFLAGS) -c -o crrcsim-interface_socket.o `test -f 'src/mod_inputdev/inputdev_socket/interface_socket.cpp' || echo '$(srcdir)/'`src/mod_inputdev/inputdev_socket/interface_socket.cpp
+
+crrcsim-interface_socket.obj: src/mod_inputdev/inputdev_socket/interface_socket.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(crrcsim_CXXFLAGS) $(CXXFLAGS) -MT crrcsim-interface_socket.obj -MD -MP -MF $(DEPDIR)/crrcsim-interface_socket.Tpo -c -o crrcsim-interface_socket.obj `if test -f 'src/mod_inputdev/inputdev_socket/interface_socket.cpp'; then $(CYGPATH_W) 'src/mod_inputdev/inputdev_socket/interface_socket.cpp'; else $(CYGPATH_W) '$(srcdir)/src/mod_inputdev/inputdev_socket/interface_socket.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/crrcsim-interface_socket.Tpo $(DEPDIR)/crrcsim-interface_socket.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/mod_inputdev/inputdev_socket/interface_socket.cpp' object='crrcsim-interface_socket.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(crrcsim_CXXFLAGS) $(CXXFLAGS) -c -o crrcsim-interface_socket.obj `if test -f 'src/mod_inputdev/inputdev_socket/interface_socket.cpp'; then $(CYGPATH_W) 'src/mod_inputdev/inputdev_socket/interface_socket.cpp'; else $(CYGPATH_W) '$(srcdir)/src/mod_inputdev/inputdev_socket/interface_socket.cpp'; fi`
 
 crrcsim-inputdev_software.o: src/mod_inputdev/inputdev_software/inputdev_software.cpp
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(crrcsim_CXXFLAGS) $(CXXFLAGS) -MT crrcsim-inputdev_software.o -MD -MP -MF $(DEPDIR)/crrcsim-inputdev_software.Tpo -c -o crrcsim-inputdev_software.o `test -f 'src/mod_inputdev/inputdev_software/inputdev_software.cpp' || echo '$(srcdir)/'`src/mod_inputdev/inputdev_software/inputdev_software.cpp

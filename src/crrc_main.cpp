@@ -87,6 +87,7 @@ If you'd like to help with CRRCSIM, then send me an email!
 #include "mod_inputdev/inputdev_serpic/inputdev_serpic.h"
 #include "mod_inputdev/inputdev_serial/inputdev_serial.h"
 #include "mod_inputdev/inputdev_zhenhua/inputdev_zhenhua.h"
+#include "mod_inputdev/inputdev_socket/inputdev_socket.h"
 
 #ifdef linux
 #include "mod_inputdev/inputdev_rctran/inputdev_rctran.h"
@@ -395,6 +396,12 @@ std::string reconfigureInputMethod(bool boRevertToMouse)
   else if (method.compare(strU(InputMethodStrings[T_TX_Interface::eIM_zhenhua])) == 0)
   {
     Global::TXInterface  = new T_TX_InterfaceZhenHua();
+    if (Global::TXInterface->init(cfgfile))
+      return(input_method_failed(Global::TXInterface->getErrMsg(), boRevertToMouse));
+  }
+  else if (method.compare(strU(InputMethodStrings[T_TX_Interface::eIM_socket])) == 0)
+  {
+    Global::TXInterface  = new T_TX_InterfaceSocket();
     if (Global::TXInterface->init(cfgfile))
       return(input_method_failed(Global::TXInterface->getErrMsg(), boRevertToMouse));
   }

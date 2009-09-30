@@ -306,7 +306,7 @@ class T_TX_Interface
    enum { eIM_keyboard = 0, eIM_mouse   = 1, eIM_joystick = 2, 
           eIM_rctran   = 3, eIM_audio   = 4, eIM_parallel = 5,  
           eIM_serial2  = 6, eIM_rctran2 = 7, eIM_serpic = 8,  
-          eIM_mnav = 9, eIM_zhenhua=10 };
+          eIM_mnav = 9, eIM_zhenhua=10, eIM_socket = 11 };
 
    /**
     * Get input method

@@ -14,6 +14,8 @@ set(MOD_INPUTDEV_SRCS
   inputdev_serial2/LoggerReader_byte.cpp
   inputdev_serial2/LoggerReader_ttyS.cpp
   inputdev_serpic/inputdev_serpic.cpp
+  inputdev_socket/inputdev_socket.cpp
+  inputdev_socket/interface_socket.cpp
   inputdev_software/inputdev_software.cpp
   inputdev_zhenhua/inputdev_zhenhua.cpp
  )

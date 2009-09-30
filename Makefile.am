@@ -153,6 +153,8 @@ crrcsim_SOURCES = src/mod_mode/F3F/handlerF3F.h \
        src/mod_inputdev/inputdev_serial2/LoggerReader_ttyS.cpp \
        src/mod_inputdev/inputdev_serpic/inputdev_serpic.h \
        src/mod_inputdev/inputdev_serpic/inputdev_serpic.cpp \
+       src/mod_inputdev/inputdev_socket/inputdev_socket.cpp \
+       src/mod_inputdev/inputdev_socket/interface_socket.cpp \
        src/mod_inputdev/inputdev_software/inputdev_software.h \
        src/mod_inputdev/inputdev_software/inputdev_software.cpp \
        src/mod_inputdev/inputdev_zhenhua/inputdev_zhenhua.h \

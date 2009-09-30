@@ -69,7 +69,7 @@ const char* RadioTypeStrings[] = {"Futaba", "Airtronics", "Hitec", "JR", "Cockpi
 const char* InputMethodStrings[] = {"Keyboard", "Mouse",   "Joystick",
                                     "RCTran", "Audio",
                                     "Parallel", "Serial2", "RCTran2",
-                                    "FMSPIC", "MNAV", "ZhenHua" };
+                                    "FMSPIC", "MNAV", "ZhenHua", "Socket" };
 
 
 int T_TX_Interface::init(SimpleXMLTransfer* config)

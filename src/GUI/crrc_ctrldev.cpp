@@ -51,7 +51,7 @@ static const char *inputMethods[]    = {InputMethodStrings[0], InputMethodString
                                         InputMethodStrings[4], InputMethodStrings[5],
                                         InputMethodStrings[6], InputMethodStrings[7],
                                         InputMethodStrings[8], InputMethodStrings[9],
-                                        InputMethodStrings[10],
+                                        InputMethodStrings[10], InputMethodStrings[11],
                                         NULL};
 
 static const char *serialSpeed[] = {"9600", "19200", NULL};
