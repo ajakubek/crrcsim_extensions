@@ -55,10 +55,15 @@ class T_TX_InterfaceSocket : public T_TX_Interface
     * is not overwritten.
     */
    void getInputData(TSimInputs* inputs);
+
+   /**
+	* Set current input raw data.
+	*/
+   void getRawData(float *dest);
    
   private:
    InterfaceSocket*   input;
-   uint16_t           cnt_cmd[3];
+   float              channel_values[TX_MAXAXIS];
    uint8_t            reverse;
    
    std::string        device;
