@@ -62,6 +62,11 @@ class T_TX_InterfaceSocket : public T_TX_Interface
    void getRawData(float *dest);
    
   private:
+   /**
+	* Sends telemetry data to remote device.
+	*/
+   void sendTelemetry();
+
    InterfaceSocket*   input;
    float              channel_values[TX_MAXAXIS];
    uint8_t            reverse;

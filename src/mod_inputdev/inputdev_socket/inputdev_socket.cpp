@@ -85,6 +85,11 @@ void T_TX_InterfaceSocket::putBackIntoCfg(SimpleXMLTransfer* config)
 #if DEBUG_TX_INTERFACE > 0
   printf("int T_TX_InterfaceSocket::putBackIntoCfg(SimpleXMLTransfer* config)\n");
 #endif  
+
+  mixer->putBackIntoCfg(config);
+  calib->putBackIntoCfg(config);
+  map->putBackIntoCfg(config);
+
   T_TX_Interface::putBackIntoCfg(config);
   
   config->setAttributeOverwrite("inputMethod.socket.device",   device);  
@@ -97,6 +102,8 @@ void T_TX_InterfaceSocket::getInputData(TSimInputs* inputs)
   printf("void T_TX_InterfaceSocket::getInputData(TSimInputs* inputs)\n");
 #endif  
 
+  sendTelemetry();
+
   uint16_t cnt_cmd_cnv[TX_MAXAXIS];
 
   // Read data
@@ -106,7 +113,7 @@ void T_TX_InterfaceSocket::getInputData(TSimInputs* inputs)
 	if (axes > TX_MAXAXIS)
 		axes = TX_MAXAXIS;
     for (int i = 0; i < axes; ++i)
-      channel_values[i] = (float)((reverse & (uint8_t)(1 << i)) ? 65536 - cnt_cmd_cnv[i] : cnt_cmd_cnv[i]) / 65536.0; 
+      channel_values[i] = (float)((reverse & (uint8_t)(1 << i)) ? 65536 - cnt_cmd_cnv[i] : cnt_cmd_cnv[i]) / 65536.0 - 0.5; 
 
 	CalibMixMapValues(inputs, channel_values);
   }
@@ -118,6 +125,37 @@ void T_TX_InterfaceSocket::getRawData(float* dest)
   printf("void T_TX_InterfaceSocket::getRawData(float* dest)\n");
 #endif  
 
+  
+  uint16_t cnt_cmd_cnv[TX_MAXAXIS];
+
+  // Read data
+  if(input->get_servo_cmd(cnt_cmd_cnv, &reverse) > 0)
+  {
+    //fprintf(stderr, "Got servo commands...\n");
+    /*
+    cnt_cmd_cnv[0] = ((float)((reverse & (uint8_t)0x01) ? 65536 - cnt_cmd[0] : cnt_cmd[0]) - 32768.0) / 65536.0; //FIXME: for some reason, MNAV sensor code uses (22418 - cnt_cmd) instead of (65536 - cnt_cmd)
+    cnt_cmd_cnv[1] = ((float)((reverse & (uint8_t)0x02) ? 65536 - cnt_cmd[1] : cnt_cmd[1]) - 32768.0) / 65536.0; //FIXME: for some reason, MNAV sensor code uses (22418 - cnt_cmd) instead of (65536 - cnt_cmd)
+    cnt_cmd_cnv[2] = (float)((reverse & (uint8_t)0x04) ? 65536 - cnt_cmd[2] : cnt_cmd[2]) / 65536.0; //FIXME: for some reason, MNAV sensor code uses (22418 - cnt_cmd) instead of (65536 - cnt_cmd)
+    */
+	int axes = getNumAxes();
+	if (axes > TX_MAXAXIS)
+		axes = TX_MAXAXIS;
+    for (int i = 0; i < axes; ++i)
+      channel_values[i] = (float)((reverse & (uint8_t)(1 << i)) ? 65536 - cnt_cmd_cnv[i] : cnt_cmd_cnv[i]) / 65536.0 - 0.5; 
+
+    /*
+    inputs->elevator = -(cnt_cmd_cnv[1] - cnt_cmd_cnv[0]) / 2.0;
+    //inputs->rudder   =
+    inputs->aileron  = (cnt_cmd_cnv[1] + cnt_cmd_cnv[0]) / 2.0;
+    inputs->throttle = cnt_cmd_cnv[2];
+
+    //fprintf(stderr, "[servo]: 0:0x%04hx 1:0x%04hx 2:0x%04hx reverse:0x%04hx\n\n", cnt_cmd[0], cnt_cmd[1], cnt_cmd[2], (uint16_t)reverse);
+	*/
+  }
+}
+
+void T_TX_InterfaceSocket::sendTelemetry()
+{
   struct imu imudata;
   struct gps gpsdata;
   struct servo servopacket;
@@ -226,31 +264,4 @@ void T_TX_InterfaceSocket::getRawData(float* dest)
     // Send data
     input->put_state_data(&imudata, &gpsdata, &servopacket);
   }
-  
-  uint16_t cnt_cmd_cnv[TX_MAXAXIS];
-
-  // Read data
-  if(input->get_servo_cmd(cnt_cmd_cnv, &reverse) > 0)
-  {
-    //fprintf(stderr, "Got servo commands...\n");
-    /*
-    cnt_cmd_cnv[0] = ((float)((reverse & (uint8_t)0x01) ? 65536 - cnt_cmd[0] : cnt_cmd[0]) - 32768.0) / 65536.0; //FIXME: for some reason, MNAV sensor code uses (22418 - cnt_cmd) instead of (65536 - cnt_cmd)
-    cnt_cmd_cnv[1] = ((float)((reverse & (uint8_t)0x02) ? 65536 - cnt_cmd[1] : cnt_cmd[1]) - 32768.0) / 65536.0; //FIXME: for some reason, MNAV sensor code uses (22418 - cnt_cmd) instead of (65536 - cnt_cmd)
-    cnt_cmd_cnv[2] = (float)((reverse & (uint8_t)0x04) ? 65536 - cnt_cmd[2] : cnt_cmd[2]) / 65536.0; //FIXME: for some reason, MNAV sensor code uses (22418 - cnt_cmd) instead of (65536 - cnt_cmd)
-    */
-	int axes = getNumAxes();
-	if (axes > TX_MAXAXIS)
-		axes = TX_MAXAXIS;
-    for (int i = 0; i < axes; ++i)
-      channel_values[i] = (float)((reverse & (uint8_t)(1 << i)) ? 65536 - cnt_cmd_cnv[i] : cnt_cmd_cnv[i]) / 65536.0; 
-
-    /*
-    inputs->elevator = -(cnt_cmd_cnv[1] - cnt_cmd_cnv[0]) / 2.0;
-    //inputs->rudder   =
-    inputs->aileron  = (cnt_cmd_cnv[1] + cnt_cmd_cnv[0]) / 2.0;
-    inputs->throttle = cnt_cmd_cnv[2];
-
-    //fprintf(stderr, "[servo]: 0:0x%04hx 1:0x%04hx 2:0x%04hx reverse:0x%04hx\n\n", cnt_cmd[0], cnt_cmd[1], cnt_cmd[2], (uint16_t)reverse);
-	*/
-  }
-}
+}

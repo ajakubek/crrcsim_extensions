@@ -53,6 +53,7 @@
 #include <sys/types.h>
 #endif
 #endif
+#include "../inputdev.h"
 #include "interface_socket.h"
 
 //#define OUTPUT_PACKET_TYPE 'S'
@@ -377,7 +378,7 @@ void InterfaceSocket::encode_packet(struct imu *data, struct gps *gpsdata, struc
 }
 
 
-int InterfaceSocket::get_servo_cmd(uint16_t cnt_cmd[3], uint8_t *reverse)
+int InterfaceSocket::get_servo_cmd(uint16_t cnt_cmd[TX_MAXAXIS], uint8_t *reverse)
 {
   int		count=0,nbytes=0;
   uint8_t  	input_buffer[SERVO_PACKET_SIZE]={0,};
@@ -473,7 +474,7 @@ int InterfaceSocket::get_servo_cmd(uint16_t cnt_cmd[3], uint8_t *reverse)
   return count;
 }
 
-void InterfaceSocket::decode_servo_cmd(uint8_t data[24], uint16_t cnt_cmd[3])
+void InterfaceSocket::decode_servo_cmd(uint8_t data[24], uint16_t cnt_cmd[TX_MAXAXIS])
 {
    //cnt_cmd[1] = ch1:elevator, cnt_cmd[0] = ch0:aileron, cnt_cmd[2] = ch2:throttle
    //byte  data[24]={0,};
@@ -488,15 +489,23 @@ void InterfaceSocket::decode_servo_cmd(uint8_t data[24], uint16_t cnt_cmd[3])
    //elevator
    //data[6] = (byte)(cnt_cmd[1] >> 8);
    //data[7] = (byte)cnt_cmd[1];
-   cnt_cmd[1] = ((uint16_t)data[6] << 8) | (uint16_t)data[7];
+   //cnt_cmd[1] = ((uint16_t)data[6] << 8) | (uint16_t)data[7];
    //throttle
    //data[8] = (byte)(cnt_cmd[2] >> 8);
    //data[9] = (byte)cnt_cmd[2];
-   cnt_cmd[2] = ((uint16_t)data[8] << 8) | (uint16_t)data[9];
+   //cnt_cmd[2] = ((uint16_t)data[8] << 8) | (uint16_t)data[9];
    //aileron
    //data[4] = (byte)(cnt_cmd[0] >> 8); 
    //data[5] = (byte)cnt_cmd[0];
-   cnt_cmd[0] = ((uint16_t)data[4] << 8) | (uint16_t)data[5];
+   //cnt_cmd[0] = ((uint16_t)data[4] << 8) | (uint16_t)data[5];
+
+   // 9 input axes are supported by MNAV protocol (10th axis is checksum)
+   // this might be reduced by TX_MAXAXIS
+   int axes = 9;
+   if (axes > TX_MAXAXIS)
+	   axes = TX_MAXAXIS;
+   for (int i = 0; i < axes; ++i)
+	   cnt_cmd[i] = ((uint16_t)data[4 + i * 2] << 8) | (uint16_t)data[5 + i * 2];
    
    //checksum:need to be verified
    //sum = 0xa6;

@@ -97,11 +97,11 @@ protected:
   void encode_servopacket(struct servo *servopacket, uint8_t* buffer);
   void encode_packet(struct imu *data, struct gps *gpsdata, struct servo *servopacket, uint8_t* buffer);
   
-  void decode_servo_cmd(uint8_t data[24], uint16_t cnt_cmd[3]);
+  void decode_servo_cmd(uint8_t data[24], uint16_t cnt_cmd[TX_MAXAXIS]);
   
 public:
   void put_state_data(struct imu *imudata, struct gps *gpsdata, struct servo *servopacket);
-  int get_servo_cmd(uint16_t cnt_cmd[3], uint8_t *reverse);
+  int get_servo_cmd(uint16_t cnt_cmd[TX_MAXAXIS], uint8_t *reverse);
   void display_message(struct imu *data, struct gps *gdata);
 
   void process_input(void)
