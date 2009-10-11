@@ -225,7 +225,7 @@ void T_TX_InterfaceSocket::sendTelemetry()
     imudata.hy       = -r12 / 2.0; //NOTE: all of these negated because MNAV magnetic sensor is negated
     imudata.hz       = -r13 / 2.0;
     imudata.Ps       = Global::aircraft->getFDM()->getAlt() * FEET2METERS; // static pressure (altitude in m)
-    imudata.Pt       = sqrt(vel.r[0]*vel.r[0] + vel.r[1]*vel.r[1] + vel.r[2]*vel.r[2]) * FEET2METERS; // pitot pressure (m/s): sent and displayed, but not used
+    imudata.Pt       = Global::aircraft->getFDM()->getVRelAirmass() * FEET2METERS; // pitot pressure (m/s): sent and displayed, but not used
     imudata.Tx       = 0; // temperature (sent but not used)
     imudata.Ty       = 0;
     imudata.Tz       = 0;
